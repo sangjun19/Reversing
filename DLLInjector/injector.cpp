@@ -22,6 +22,7 @@ BOOL InjectDLL(DWORD pid, const char* dllPath) {
 
 int main() {
     DWORD pid;
+    //경로 수정 필요
     char dllPath[MAX_PATH] = "hook.dll";
 
     printf("Enter PID: ");
