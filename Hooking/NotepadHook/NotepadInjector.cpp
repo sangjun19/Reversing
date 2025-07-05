@@ -159,13 +159,11 @@ BOOL InjectDLL(DWORD pid, const char* dllPath) {
 }
 
 int main() {
-    // 절대 경로로 변경 (여기를 실제 DLL 경로로 수정하세요)
     char dllPath[MAX_PATH];
     
-    // 현재 디렉터리 기준으로 절대 경로 생성
     char currentDir[MAX_PATH];
     GetCurrentDirectoryA(MAX_PATH, currentDir);
-    snprintf(dllPath, MAX_PATH, "%s\\test.dll", currentDir);
+    snprintf(dllPath, MAX_PATH, "%s\\Tetris.dll", currentDir);
     
     // 또는 직접 절대 경로 지정
     // strcpy_s(dllPath, MAX_PATH, "C:\\full\\path\\to\\your\\test.dll");
@@ -174,7 +172,7 @@ int main() {
     printf("[*] Searching for notepad.exe...\n");
     
     DWORD pid = FindNotepadPID();
-    // DWORD pid = 15296; // 하드코딩된 PID 사용시
+    // DWORD pid = 15296;
 
     if (pid == 0) {
         printf("[-] Could not find notepad.exe\n");
