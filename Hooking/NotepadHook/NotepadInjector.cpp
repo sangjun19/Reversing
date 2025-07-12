@@ -159,39 +159,43 @@ BOOL InjectDLL(DWORD pid, const char* dllPath) {
 }
 
 int main() {
-    char dllPath[MAX_PATH];
-    
-    char currentDir[MAX_PATH];
-    GetCurrentDirectoryA(MAX_PATH, currentDir);
-    snprintf(dllPath, MAX_PATH, "%s\\Tetris.dll", currentDir);
-    
-    // 또는 직접 절대 경로 지정
-    // strcpy_s(dllPath, MAX_PATH, "C:\\full\\path\\to\\your\\test.dll");
+    while(true)
+    {
+        char dllPath[MAX_PATH];
+        
+        char currentDir[MAX_PATH];
+        GetCurrentDirectoryA(MAX_PATH, currentDir);
+        snprintf(dllPath, MAX_PATH, "%s\\Tetris.dll", currentDir);
+        
+        // 또는 직접 절대 경로 지정
+        // strcpy_s(dllPath, MAX_PATH, "C:\\full\\path\\to\\your\\test.dll");
 
-    printf("=== DLL Injection Tool ===\n");
-    printf("[*] Searching for notepad.exe...\n");
-    
-    DWORD pid = FindNotepadPID();
-    // DWORD pid = 15296;
+        printf("=== DLL Injection Tool ===\n");
+        printf("[*] Searching for notepad.exe...\n");
+        
+        DWORD pid = FindNotepadPID();
+        // DWORD pid = 15296;
 
-    if (pid == 0) {
-        printf("[-] Could not find notepad.exe\n");
-        printf("[*] Please start notepad.exe and try again\n");
-    } else {
-        printf("[+] Found notepad.exe (PID: %lu)\n", pid);
-        printf("[*] Attempting to inject DLL...\n");
-        printf("=====================================\n");
-
-        if (InjectDLL(pid, dllPath)) {
-            printf("=====================================\n");
-            printf("[+] DLL injection successful!\n");
+        if (pid == 0) {
+            printf("[-] Could not find notepad.exe\n");
+            printf("[*] Please start notepad.exe and try again\n");
         } else {
+            printf("[+] Found notepad.exe (PID: %lu)\n", pid);
+            printf("[*] Attempting to inject DLL...\n");
             printf("=====================================\n");
-            printf("[-] DLL injection failed.\n");
+
+            if (InjectDLL(pid, dllPath)) {
+                printf("=====================================\n");
+                printf("[+] DLL injection successful!\n");
+            } else {
+                printf("=====================================\n");
+                printf("[-] DLL injection failed.\n");
+            }
         }
+        
+        printf("\nPress any key to exit...\n");
+        system("pause");
+        system("cls");
     }
-    
-    printf("\nPress any key to exit...\n");
-    system("pause");
     return 0;
 }
